@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- ── Colores primarios SignBridge ── -->
+    <color name="primary">#004AC6</color>
+    <color name="on_primary">#FFFFFF</color>
+    <color name="primary_container">#2563EB</color>
+    <color name="on_primary_container">#EEEFFF</color>
+    <color name="primary_fixed">#DBE1FF</color>
+    <color name="primary_fixed_dim">#B4C5FF</color>
+    <color name="inverse_primary">#B4C5FF</color>
+
+    <!-- ── Secundario ── -->
+    <color name="secondary">#006A61</color>
+    <color name="on_secondary">#FFFFFF</color>
+    <color name="secondary_container">#86F2E4</color>
+    <color name="on_secondary_container">#006F66</color>
+
+    <!-- ── Terciario ── -->
+    <color name="tertiary">#4E565B</color>
+    <color name="on_tertiary">#FFFFFF</color>
+    <color name="tertiary_container">#666F74</color>
+    <color name="on_tertiary_container">#E9F2F8</color>
+
+    <!-- ── Error ── -->
+    <color name="error">#BA1A1A</color>
+    <color name="on_error">#FFFFFF</color>
+    <color name="error_container">#FFDAD6</color>
+    <color name="on_error_container">#93000A</color>
+
+    <!-- ── Superficie y fondo ── -->
+    <color name="background">#F8F9FF</color>
+    <color name="on_background">#0D1C2E</color>
+    <color name="surface">#F8F9FF</color>
+    <color name="on_surface">#0D1C2E</color>
+    <color name="surface_dim">#CCDBF3</color>
+    <color name="surface_bright">#F8F9FF</color>
+    <color name="surface_variant">#D5E3FC</color>
+    <color name="on_surface_variant">#434655</color>
+
+    <color name="surface_container_lowest">#FFFFFF</color>
+    <color name="surface_container_low">#EFF4FF</color>
+    <color name="surface_container">#E6EEFF</color>
+    <color name="surface_container_high">#DCE9FF</color>
+    <color name="surface_container_highest">#D5E3FC</color>
+
+    <!-- ── Inverso ── -->
+    <color name="inverse_surface">#233144</color>
+    <color name="inverse_on_surface">#EAF1FF</color>
+
+    <!-- ── Outline ── -->
+    <color name="outline">#737686</color>
+    <color name="outline_variant">#C3C6D7</color>
+
+    <!-- ── Surface tint ── -->
+    <color name="surface_tint">#0053DB</color>
+</resources>
