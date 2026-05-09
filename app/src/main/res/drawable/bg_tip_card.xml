@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/bg_tip_card.xml
+     Fondo gris cálido para la tarjeta "Consejo Pro" -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/tertiary_fixed" />
+    <corners android:radius="12dp" />
+</shape>

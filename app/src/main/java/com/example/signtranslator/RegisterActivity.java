@@ -10,43 +10,30 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.signtranslator.R;
+import com.example.signtranslator.data.User;
+import com.example.signtranslator.data.UserRepository;
+import com.example.signtranslator.MainActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.example.signtranslator.R;
 
-/**
- * RegisterActivity — Pantalla de creación de cuenta de SignBridge.
- *
- * Responsabilidades:
- *  - Capturar nombre, correo y contraseña.
- *  - Validar los campos con errores inline.
- *  - Delegar registro al repositorio / ViewModel (reemplaza los TODO).
- *  - Navegar de regreso al Login al pulsar "Inicia sesión".
- */
 public class RegisterActivity extends AppCompatActivity {
 
-    // ── Vistas ──────────────────────────────────────────────────────────────
-    private TextInputLayout tilName;
-    private TextInputLayout tilEmail;
-    private TextInputLayout tilPassword;
-    private TextInputEditText etName;
-    private TextInputEditText etEmail;
-    private TextInputEditText etPassword;
-    private Button btnRegister;
-    private Button btnGoogle;
+    private TextInputLayout tilName, tilEmail, tilPassword;
+    private TextInputEditText etName, etEmail, etPassword;
+    private Button btnRegister, btnGoogle;
     private TextView tvLogin;
+    private UserRepository userRepository;
 
-    // ── Lifecycle ────────────────────────────────────────────────────────────
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
+        userRepository = new UserRepository();
         bindViews();
         setupListeners();
     }
 
-    // ── View Binding manual ──────────────────────────────────────────────────
     private void bindViews() {
         tilName     = findViewById(R.id.tilName);
         tilEmail    = findViewById(R.id.tilEmail);
@@ -59,19 +46,14 @@ public class RegisterActivity extends AppCompatActivity {
         tvLogin     = findViewById(R.id.tvLogin);
     }
 
-    // ── Listeners ────────────────────────────────────────────────────────────
     private void setupListeners() {
-
-        // Botón principal de registro
         btnRegister.setOnClickListener(v -> attemptRegister());
 
-        // Botón de Google
-        btnGoogle.setOnClickListener(v -> registerWithGoogle());
+        btnGoogle.setOnClickListener(v ->
+                Toast.makeText(this, "Google Sign-In (próximamente)", Toast.LENGTH_SHORT).show());
 
-        // Ir al Login
-        tvLogin.setOnClickListener(v -> goToLogin());
+        tvLogin.setOnClickListener(v -> finish());
 
-        // Limpiar errores mientras el usuario escribe
         etName.addTextChangedListener(new SimpleTextWatcher() {
             @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
                 tilName.setError(null);
@@ -87,15 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
                 tilPassword.setError(null);
             }
         });
-
-        // Teclado: acción "Done" en contraseña lanza el registro
-        etPassword.setOnEditorActionListener((v, actionId, event) -> {
-            attemptRegister();
-            return true;
-        });
     }
-
-    // ── Lógica de Registro ───────────────────────────────────────────────────
 
     private void attemptRegister() {
         tilName.setError(null);
@@ -110,28 +84,33 @@ public class RegisterActivity extends AppCompatActivity {
 
         setLoadingState(true);
 
-        // TODO: reemplazar con tu ViewModel / Repositorio real, por ejemplo:
-        //   registerViewModel.register(name, email, password)
-        //       .observe(this, result -> {
-        //           setLoadingState(false);
-        //           if (result.isSuccess()) onRegisterSuccess();
-        //           else showError(result.getError());
-        //       });
-        //
-        // Simulación temporal:
-        btnRegister.postDelayed(() -> {
-            setLoadingState(false);
-            onRegisterSuccess();
-        }, 1500);
+        userRepository.register(name, email, password, new UserRepository.AuthCallback() {
+            @Override
+            public void onSuccess(User user) {
+                setLoadingState(false);
+                Toast.makeText(RegisterActivity.this,
+                        "¡Cuenta creada! Bienvenido " + user.getName() + " 🎉",
+                        Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                setLoadingState(false);
+                if (errorMessage.contains("correo")) {
+                    tilEmail.setError(errorMessage);
+                } else {
+                    Toast.makeText(RegisterActivity.this, errorMessage, Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
-    /**
-     * Valida los tres campos. Muestra errores inline.
-     * @return true si todo es válido.
-     */
     private boolean validateInputs(String name, String email, String password) {
         boolean valid = true;
-
         if (TextUtils.isEmpty(name)) {
             tilName.setError("El nombre es obligatorio");
             valid = false;
@@ -139,7 +118,6 @@ public class RegisterActivity extends AppCompatActivity {
             tilName.setError("Mínimo 3 caracteres");
             valid = false;
         }
-
         if (TextUtils.isEmpty(email)) {
             tilEmail.setError("El correo es obligatorio");
             valid = false;
@@ -147,7 +125,6 @@ public class RegisterActivity extends AppCompatActivity {
             tilEmail.setError("Ingresa un correo válido");
             valid = false;
         }
-
         if (TextUtils.isEmpty(password)) {
             tilPassword.setError("La contraseña es obligatoria");
             valid = false;
@@ -155,41 +132,8 @@ public class RegisterActivity extends AppCompatActivity {
             tilPassword.setError("Mínimo 6 caracteres");
             valid = false;
         }
-
         return valid;
     }
-
-    private void registerWithGoogle() {
-        // TODO: implementar Google Sign-In
-        // GoogleSignInOptions gso = new GoogleSignInOptions.Builder(...)
-        //     .requestIdToken(getString(R.string.default_web_client_id))
-        //     .requestEmail().build();
-        // GoogleSignInClient client = GoogleSignIn.getClient(this, gso);
-        // startActivityForResult(client.getSignInIntent(), RC_SIGN_IN);
-        Toast.makeText(this, "Google Sign-In (próximamente)", Toast.LENGTH_SHORT).show();
-    }
-
-    // ── Navegación ───────────────────────────────────────────────────────────
-
-    private void onRegisterSuccess() {
-        Toast.makeText(this, "¡Cuenta creada! Bienvenido a SignBridge 🎉", Toast.LENGTH_SHORT).show();
-
-        // TODO: navegar a MainActivity o donde corresponda
-        // Intent intent = new Intent(this, MainActivity.class);
-        // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        // startActivity(intent);
-        // finish();
-    }
-
-    /**
-     * Regresa al Login. Usa finish() para no apilar actividades.
-     */
-    private void goToLogin() {
-        finish(); // Si llegó desde LoginActivity, simplemente cierra esta pantalla
-        // Si no, usa: startActivity(new Intent(this, LoginActivity.class));
-    }
-
-    // ── Helpers ──────────────────────────────────────────────────────────────
 
     private void setLoadingState(boolean loading) {
         btnRegister.setEnabled(!loading);
@@ -203,7 +147,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private abstract static class SimpleTextWatcher implements android.text.TextWatcher {
-        @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-        @Override public void afterTextChanged(android.text.Editable s) { }
+        @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+        @Override public void afterTextChanged(android.text.Editable s) {}
     }
 }

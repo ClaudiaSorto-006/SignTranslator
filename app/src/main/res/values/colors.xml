@@ -56,4 +56,8 @@
 
     <!-- ── Surface tint ── -->
     <color name="surface_tint">#0053DB</color>
+
+    <color name="on_tertiary_fixed">#141D21</color>
+    <color name="on_tertiary_fixed_variant">#3F484D</color>
+    <color name="tertiary_fixed">#DBE4EA</color>
 </resources>

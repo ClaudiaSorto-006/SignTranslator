@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- ══════════════════════════════════════
+             TOP APP BAR
+        ══════════════════════════════════════ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:background="@color/surface"
+            android:elevation="2dp"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingEnd="12dp"
+            android:gravity="center_vertical">
+
+            <!-- Avatar -->
+            <FrameLayout
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_circle_primary_container">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_account_circle"
+                    app:tint="@color/on_primary_container"
+                    android:contentDescription="Perfil" />
+            </FrameLayout>
+
+            <!-- Título centrado -->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="SignTranslator"
+                android:textColor="@color/primary"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:fontFamily="@font/atkinson_hyperlegible" />
+
+            <!-- Botón ayuda -->
+            <ImageButton
+                android:id="@+id/btnHelp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_help_outline"
+                android:contentDescription="Ayuda"
+                app:tint="@color/primary" />
+        </LinearLayout>
+
+        <!-- ══════════════════════════════════════
+             CONTENIDO PRINCIPAL
+        ══════════════════════════════════════ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="24dp"
+            android:paddingBottom="24dp">
+
+            <!-- ── Sección de entrada ── -->
+
+            <!-- TextArea de texto a traducir -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilInput"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:boxStrokeColor="@color/outline_variant"
+                app:boxStrokeWidth="1dp"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusBottomEnd="12dp"
+                app:hintEnabled="false">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etInputText"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:hint="Escribe el texto que deseas traducir..."
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:gravity="top|start"
+                    android:padding="16dp"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/atkinson_hyperlegible"
+                    android:background="@color/surface_container_lowest"
+                    android:imeOptions="actionDone" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Botón Traducir -->
+            <Button
+                android:id="@+id/btnTranslate"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Traducir"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/atkinson_hyperlegible"
+                android:backgroundTint="@color/primary"
+                android:textColor="@color/on_primary"
+                app:cornerRadius="28dp"
+                app:icon="@drawable/ic_translate"
+                app:iconGravity="textStart"
+                app:iconTint="@color/on_primary"
+                android:drawablePadding="8dp"
+                android:layout_marginBottom="24dp" />
+
+            <!-- ── Sección de resultados ── -->
+
+            <!-- Card de Traducción -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/surface_container"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="1dp"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Label "Traducción a Lengua de Señas" -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="8dp">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/ic_auto_awesome"
+                            app:tint="@color/on_surface_variant"
+                            android:layout_marginEnd="8dp"
+                            android:contentDescription="Traducción" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Traducción a Lengua de Señas"
+                            android:textColor="@color/on_surface_variant"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/atkinson_hyperlegible" />
+                    </LinearLayout>
+
+                    <!-- Viewport de video/animación 16:9 -->
+                    <FrameLayout
+                        android:id="@+id/frameVideoContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="190dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="0dp"
+                        android:background="@drawable/bg_video_container">
+
+                        <!-- Placeholder: reemplaza con SurfaceView o VideoView -->
+                        <ImageView
+                            android:id="@+id/ivSignPreview"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:contentDescription="Vista previa de señas"
+                            android:src="@drawable/ic_placeholder"
+                            android:background="@color/inverse_surface" />
+
+                        <!-- Overlay indicador "Vista de Señas" -->
+                        <LinearLayout
+                            android:id="@+id/layoutSignBadge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom|start"
+                            android:layout_margin="12dp"
+                            android:background="@drawable/bg_badge_blur"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:paddingTop="6dp"
+                            android:paddingBottom="6dp">
+
+                            <View
+                                android:id="@+id/dotPulse"
+                                android:layout_width="8dp"
+                                android:layout_height="8dp"
+                                android:background="@drawable/bg_dot_pulse"
+                                android:layout_marginEnd="8dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Vista de Señas"
+                                android:textColor="@color/on_primary_container"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/atkinson_hyperlegible" />
+                        </LinearLayout>
+                    </FrameLayout>
+
+                    <!-- Texto de traducción resultante -->
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_result_text"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:id="@+id/tvTranslationOutput"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="El resultado de la traducción aparecerá aquí."
+                                android:textColor="@color/on_surface"
+                                android:textSize="14sp"
+                                android:fontFamily="@font/atkinson_hyperlegible"
+                                android:lineSpacingMultiplier="1.5" />
+                        </LinearLayout>
+                    </FrameLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- ── Botones de acción (2 columnas) ── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <!-- Reproducir Voz -->
+                <!-- Reproducir Voz -->
+                <Button
+                    android:id="@+id/btnPlayVoice"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:text="Reproducir Voz"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="false"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textColor="@color/on_secondary_container"
+                    android:fontFamily="@font/atkinson_hyperlegible"
+                    android:backgroundTint="@color/secondary_container"
+                    app:cornerRadius="12dp"
+                    app:icon="@drawable/ic_volume_up"
+                    app:iconTint="@color/on_secondary_container"
+                    app:iconSize="18dp"
+                    app:iconGravity="textStart" />
+
+                <!-- Mostrar Señas -->
+                <Button
+                    android:id="@+id/btnShowSigns"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:text="Mostrar Señas"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="false"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textColor="@color/on_secondary_container"
+                    android:fontFamily="@font/atkinson_hyperlegible"
+                    android:backgroundTint="@color/secondary_container"
+                    app:cornerRadius="12dp"
+                    app:icon="@drawable/ic_sign_language"
+                    app:iconTint="@color/on_secondary_container"
+                    app:iconSize="18dp"
+                    app:iconGravity="textStart" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

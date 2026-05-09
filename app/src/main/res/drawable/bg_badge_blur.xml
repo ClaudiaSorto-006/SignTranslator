@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/bg_badge_blur.xml
+     Badge semitransparente "Vista de Señas" -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#33004AC6" />
+    <corners android:radius="20dp" />
+</shape>
